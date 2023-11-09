@@ -1,0 +1,7 @@
+torch
+tensorflow
+tflearn
+scipy
+h5py
+numpy
+cv2
