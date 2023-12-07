@@ -4,7 +4,8 @@ from scipy.io import savemat
 import glob
 import os, time, scipy.io
 import tensorflow as tf
-import tensorflow.contrib.slim as slim
+#import tensorflow.contrib.slim as slim
+import tf_slim as slim
 import numpy as np
 from tflearn.layers.conv import global_avg_pool
 from network import network

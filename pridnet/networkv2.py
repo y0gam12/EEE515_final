@@ -1,7 +1,9 @@
-import tensorflow as tf
+#import tensorflow as tf
 #import tensorflow.contrib.slim as slim
 import tf_slim as slim
 from tflearn.layers.conv import global_avg_pool
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 
 def lrelu(x):

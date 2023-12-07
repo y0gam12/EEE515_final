@@ -1,27 +1,32 @@
 import h5py
 import glob
 import os, time, scipy.io
-import tensorflow as tf
-import tensorflow.contrib.slim as slim
+#import tensorflow as tf
+#import tensorflow.contrib.slim as slim
+import tf_slim as slim
 import numpy as np
-from tflearn.layers.conv import global_avg_pool
-from network import network
+#from tflearn.layers.conv import global_avg_pool
+from networkv2 import network
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
-dir_name = './SIDD_Medium_Raw/Data/'
+dir_name = 'C:/Users/yogam/Documents/School/EEE515/SIDD_Small_sRGB_Only/Data'
 checkpoint_dir = './checkpoint/SIDD_Pyramid/'
 result_dir = './result/SIDD_Pyramid/'
 
-file_list = glob.glob(dir_name + '/*/*NOISY_RAW_010*')
-gt_list = glob.glob(dir_name + '/*/*GT_RAW_010*')
+file_list = glob.glob(dir_name + '/*/*NOISY_SRGB_010*')
+gt_list = glob.glob(dir_name + '/*/*GT_SRGB_010*')
 
-train_ids = [os.path.basename(train_fn)[0:4] for train_fn in file_list]
+#train_ids = [os.path.basename(train_fn)[0:4] for train_fn in file_list]
+train_ids = [train_fn.split('\\')[1][0:4] for train_fn in file_list]
 
 mat_img = {}
 gt_img = {}
 start = time.time()
 index = 0
 for file, gt_file in zip(file_list, gt_list):
-    key = os.path.basename(file)[0:4]
+    #key = os.path.basename(file)[0:4]
+    key = file.split('\\')[1][0:4]
     file_1 = file[:-5]+'1.MAT'
     gt_file_1 = gt_file[:-5]+'1.MAT'
 
@@ -44,7 +49,7 @@ ps = 256  # patch size for training
 save_freq = 500
 
 
-sess = tf.Session()
+sess = tf.compat.v1.Session()#tf.Session()
 in_image = tf.placeholder(tf.float32, [None, None, None, 1])
 gt_image = tf.placeholder(tf.float32, [None, None, None, 1])
 
